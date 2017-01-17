@@ -1,0 +1,10 @@
+[{
+  "id": "s01",
+  "status": "pass"
+}, {
+  "id": "s02",
+  "status": "fail"
+}, {
+  "id": "s03",
+  "status": "pass+fail"
+}]

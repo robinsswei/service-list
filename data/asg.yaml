@@ -1,0 +1,23 @@
+service:
+  alias: asTest
+  type: AUTOSCALER
+  template:
+    - cloud: dockerCloud
+      type : CONTAINER
+      image : "ubuntu:latest"
+      command: "sh -c 'while :; do :; done'"
+      cpu : 1
+      memory : 128
+      disk : 0 
+     
+  policy:
+    - name : policy1
+      min : 2
+      max : 5
+      scheduler_policy : minimize-compute
+      monitor:
+         - name : cpu
+           scale_in_threshold : 10
+           scale_out_threshold : 20
+           scale_in_unit : 2
+           scale_out_unit : 3
