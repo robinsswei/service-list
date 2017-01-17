@@ -5,6 +5,8 @@ var express = require('express');
 var yaml = require('js-yaml'),
     fs   = require('fs');
 
+var testData = require("./mysql.json")
+
 // Initialize app object.
 var app = new express();
 
@@ -19,15 +21,17 @@ app.get('/', function(req, res) {
 });
 
 app.post('/api/listServices', function(req, res) {
-    try {
-      var doc = yaml.safeLoad(fs.readFileSync(__dirname + '/data/asg.yaml', 'utf8'));
-      console.log(doc);
-      res.send(doc)
-    } catch (e) {
-      console.log(e);
-    }
+    // try {
+    //   var doc = yaml.safeLoad(fs.readFileSync(__dirname + '/data/asg.yaml', 'utf8'));
+    //   console.log(doc);
+    //   res.send(doc)
+    // } catch (e) {
+    //   console.log(e);
+    // }
+    res.send(testData)
 });
+
 // Create server and listen on port 3030.
 http.createServer(app).listen(3000, function() {
-    console.log('Server running...');
+    console.log('Listen to server at port 3000 ...');
 });
