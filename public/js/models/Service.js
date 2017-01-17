@@ -1,20 +1,20 @@
 //http://stackoverflow.com/questions/8527694/what-is-the-least-ugly-way-to-force-backbone-sync-updates-to-use-post-instead-of
+'use strict'
+
 var Service = Backbone.Model.extend({
   urlRoot: "../api",
   
   default: {
     id:"",
     status: "",
-    state: "",
-    url:"",
-    type: "",
-    yaml: ""
+    // state: "",
+    // url:"",
+    // type: "",
+    // yaml: ""
   },
   
   initialize: function(){
     console.log("Service has been initialized")
-    
-    this.url = this.urlRoot + "/extractServices"
     
     this.on("invalid", function(model, error){
       console.log("Initialize error: " + error)
@@ -69,7 +69,10 @@ var Service = Backbone.Model.extend({
         
       //   this.url = this.urlRoot + "/ServiceTransition"
       //   break
-        
+      // case "extract":
+      //   this.url = this.urlRoot + "/extractServices"
+      //   break
+
       case "validate":
         options["content"] = data // data is the yamlfile
         this.url = this.urlRoot + "/validateContent"
@@ -91,7 +94,6 @@ var Service = Backbone.Model.extend({
       
       default:
         this.url = this.urlRoot + "/extractServices"
-        method = "create"
         
     }
     
@@ -101,8 +103,6 @@ var Service = Backbone.Model.extend({
     // patch  -> PATCH
     // delete -> DELETE
     return Backbone.sync("create", model, options)
-  },
+  }
 })
-
-
 // tutorial at http://dailyjs.com/2012/12/20/backbone-tutorial-4/

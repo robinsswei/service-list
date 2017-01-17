@@ -5,7 +5,7 @@ var express = require('express');
 var yaml = require('js-yaml'),
     fs   = require('fs');
 
-var testData = require("./mysql.json")
+var testData = require("./data/test.json")
 
 // Initialize app object.
 var app = new express();

@@ -1,15 +1,17 @@
-var Service = require("js/model/Service")
+'use strict'
 
 var ServiceList = Backbone.Collection.extend({
   model: Service,
   
-  url: "../api/services",
+  url: "../api/listServices",
   
   initialize: function(){
-    this.fetch({
-      success: this.fetchSuccess,
-      error: this.fetchError
-    })
+    // this.fetch({
+    //   success: this.fetchSuccess,
+    //   error: this.fetchError
+    // })
+    // 
+    this.save()
   },
   
   fetchSuccess: function(){
@@ -19,5 +21,13 @@ var ServiceList = Backbone.Collection.extend({
   
   fetchError: function(){
     throw new Error("Services fetch error")
-  }
+  },
+
+  save: function(){                                                                                                                                                                                                                                                                                                                                                     
+    this.sync('create', this, {                                                                                                                                                                                                                                                                                                                                     
+        success: function(){                                                                                                                                                                                                                                                                                                                                          
+          console.log('users c!');                                                                                                                                                                                                                                                                                                                              
+        }                                                                                                                                                                                                                                                                                                                                                             
+      })                                                                                                                                                                                                                                                                                                                                                             
+    }
 })
