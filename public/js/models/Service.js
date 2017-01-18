@@ -4,18 +4,28 @@
 var Service = Backbone.Model.extend({
   urlRoot: "../api",
   
+  idAttribute: "id",
+
   default: {
-    id:"",
-    status: "",
-    // state: "",
-    // url:"",
-    // type: "",
-    // yaml: ""
+    "id":"",
+    "status": "",
+    "service": {},
+    "yaml":"",
+    "status": ""
   },
   
-  initialize: function(){
-    console.log("Service has been initialized")
+  parse: function(response){
+    console.log("inside parse")
+    var temp = {}
     
+  },
+  initialize: function(){
+    console.log("Service " + this.id  + " has been initialized")
+    console.log("Data:", this.id + " : "  + this.get("state"))
+    console.log(this)
+
+    this.sync("", this)
+
     this.on("invalid", function(model, error){
       console.log("Initialize error: " + error)
     })
@@ -102,7 +112,8 @@ var Service = Backbone.Model.extend({
     // update -> PUT
     // patch  -> PATCH
     // delete -> DELETE
-    return Backbone.sync("create", model, options)
-  }
+    Backbone.sync("create", model, options)
+  },
+
 })
 // tutorial at http://dailyjs.com/2012/12/20/backbone-tutorial-4/

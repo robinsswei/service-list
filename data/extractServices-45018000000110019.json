@@ -1,0 +1,54 @@
+{
+  "services": {
+    "45018000000110019": {
+      "service": {
+        "alias": "asTest1",
+        "id": 45018000000110019,
+        "type": "AUTOSCALER",
+        "version": "1.0",
+        "state": "FAILED",
+        "targetState": "START",
+        "resolver": 45018000000030107,
+        "secondaryState": "",
+        "description": {
+          "template": [{
+            "cloud": "dockerCloud",
+            "type": "CONTAINER",
+            "image": "ubuntu",
+            "command": "sh -c 'while :; do :; done'",
+            "prefix": "as",
+            "cpu": 1,
+            "memory": 128,
+            "disk": 0
+          }],
+          "policy": [{
+            "name": "policy1",
+            "min": 2,
+            "max": 10,
+            "scheduler_policy": "minimize-compute",
+            "monitor": [{
+              "name": "cpu_util",
+              "scale_in_threshold": 10,
+              "scale_out_threshold": 15,
+              "scale_in_unit": 2,
+              "scale_out_unit": 2
+            }, {
+              "name": "mem_util",
+              "scale_in_threshold": 10,
+              "scale_out_threshold": 20,
+              "scale_in_unit": 1,
+              "scale_out_unit": 1
+            }]
+          }]
+        },
+        "implementation": {
+          "Error": "Invalid target state: START. Resolution denied by the resolver."
+        },
+        "decomposition": []
+      },
+      "yaml": "service:\n  alias: asTest1\n  id: 45018000000110019\n  type: AUTOSCALER\n  version: '1.0'\n  state: FAILED\n  targetState: START\n  resolver: 45018000000030107\n  secondaryState: ''\n  description:\n    template:\n    - cloud: dockerCloud\n      type: CONTAINER\n      image: ubuntu\n      command: sh -c 'while :; do :; done'\n      prefix: as\n      cpu: 1\n      memory: 128\n      disk: 0\n    policy:\n    - name: policy1\n      min: 2\n      max: 10\n      scheduler_policy: minimize-compute\n      monitor:\n      - name: cpu_util\n        scale_in_threshold: 10\n        scale_out_threshold: 15\n        scale_in_unit: 2\n        scale_out_unit: 2\n      - name: mem_util\n        scale_in_threshold: 10\n        scale_out_threshold: 20\n        scale_in_unit: 1\n        scale_out_unit: 1\n  implementation:\n    Error: 'Invalid target state: START. Resolution denied by the resolver.'\n  decomposition: []\n"
+    }
+  },
+  "message": "Service extracted.",
+  "status": "pass"
+}

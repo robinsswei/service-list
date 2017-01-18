@@ -11,7 +11,7 @@ var ServiceList = Backbone.Collection.extend({
     //   error: this.fetchError
     // })
     // 
-    this.save()
+    this.sync()
   },
   
   fetchSuccess: function(){
@@ -23,11 +23,29 @@ var ServiceList = Backbone.Collection.extend({
     throw new Error("Services fetch error")
   },
 
-  save: function(){                                                                                                                                                                                                                                                                                                                                                     
-    this.sync('create', this, {                                                                                                                                                                                                                                                                                                                                     
-        success: function(){                                                                                                                                                                                                                                                                                                                                          
-          console.log('users c!');                                                                                                                                                                                                                                                                                                                              
-        }                                                                                                                                                                                                                                                                                                                                                             
-      })                                                                                                                                                                                                                                                                                                                                                             
-    }
+  sync: function(){ 
+    var self = this                                                                             
+    Backbone.sync('create', this, {                                        
+      success: function(data, status){
+        console.log("Got service list:", data)   
+        //  _.each(data.services, function (service) {
+        //   var serviceModel = new self.model(service)
+        //   self.add(serviceModel)
+        // });                                
+        for(var serviceId in data.services){
+          console.log("ServiceId: " + serviceId)
+          var serviceModel = new self.model({"id": serviceId})
+          self.add(serviceModel)
+        }             
+      }                                                                                         
+    })                                                                                             
+  },
+
+  // parse: function(response, options) {
+  //   // For some reason POST requests return a different data structure.
+  //    var self = this;
+  //     return _.map(response.services, function (service) {
+  //       return new self.model(service, options);
+  //     });
+  // }
 })

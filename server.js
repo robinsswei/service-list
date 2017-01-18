@@ -5,8 +5,8 @@ var express = require('express');
 var yaml = require('js-yaml'),
     fs   = require('fs');
 
-var testData = require("./data/test.json")
-
+var listServices = require("./data/listServices.json")
+var extractService = require("./data/extractServices-45018000000110019.json")
 // Initialize app object.
 var app = new express();
 
@@ -21,17 +21,31 @@ app.get('/', function(req, res) {
 });
 
 app.post('/api/listServices', function(req, res) {
-    // try {
-    //   var doc = yaml.safeLoad(fs.readFileSync(__dirname + '/data/asg.yaml', 'utf8'));
-    //   console.log(doc);
-    //   res.send(doc)
-    // } catch (e) {
-    //   console.log(e);
-    // }
-    res.send(testData)
+  // try {
+  //   var doc = yaml.safeLoad(fs.readFileSync(__dirname + '/data/asg.yaml', 'utf8'));
+  //   console.log(doc);
+  //   res.send(doc)
+  // } catch (e) {
+  //   console.log(e);
+  // }
+  res.send(listServices)
 });
+
+app.post("/api/extractServices", function(req, res){
+  res.send(extractService)
+})
 
 // Create server and listen on port 3030.
 http.createServer(app).listen(3000, function() {
-    console.log('Listen to server at port 3000 ...');
+  console.log('Listen to server at port 3000 ...');
 });
+
+
+var util = require('util');
+var log_file = fs.createWriteStream(__dirname + '/debug.log', {flags : 'w'});
+var log_stdout = process.stdout;
+
+console.log = function(d) { //
+  log_file.write(util.format(d) + '\n');
+  log_stdout.write(util.format(d) + '\n');
+};
